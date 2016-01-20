@@ -107,7 +107,7 @@ public class SparqlClient {
             URIBuilder builder = new URIBuilder();
             builder.setScheme("http");
             builder.setHost(this.endpointUri);
-            builder.setPath("/sparql");
+            builder.setPath("/space/query");
             builder.setParameter("query", queryString);
             builder.setParameter("output", "xml");
             URI uri = builder.build();
