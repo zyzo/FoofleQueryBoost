@@ -17,11 +17,10 @@ import java.util.Map;
  */
 public class FoofleReformulate {
 	
-	public static List<String> split_Req(String req){
+	public static List<String> split_Req(String[] req){
 		
-		String[] splitted = req.split(", ");
 		List<String> l = new ArrayList();
-		for(String st : splitted){
+		for(String st : req){
 			l.add(st);
 		}
 		return l;
@@ -29,10 +28,7 @@ public class FoofleReformulate {
 	
 	
 	
-	 /**
-     * @param args the command line arguments
-     */
-    public List<String> strategy1(String args) {
+    public static List<String> strategy1(String[] args) {
     	List<String> l =  split_Req(args);
     	int nb_var = l.size();
     	
@@ -49,9 +45,9 @@ public class FoofleReformulate {
 						  "?searched rdfs:label ?label\n" +
 						  "FILTER(LANGMATCHES(LANG(?label), 'fr'))" +
 						"}";
-        System.out.println("Query : ");
-        System.out.println(query);
-        System.out.println("Result : ");
+        //System.out.println("Query : ");
+        //System.out.println(query);
+        //System.out.println("Result : ");
         Iterable<Map<String, String>> results = sparqlClient.select(query);
         for (Map<String, String> result : results) {
         	String val = result.get("label");
@@ -75,9 +71,9 @@ public class FoofleReformulate {
     						  "?searched rdfs:label ?label\n" +
     						  "FILTER(LANGMATCHES(LANG(?label), 'fr'))" +
     						"}";
-            System.out.println("Query : ");
-            System.out.println(query);
-            System.out.println("Result : ");
+            //System.out.println("Query : ");
+            //System.out.println(query);
+            //System.out.println("Result : ");
             Iterable<Map<String, String>> results = sparqlClient.select(query);
             for (Map<String, String> result : results) {
             	String val = result.get("label");
@@ -94,5 +90,10 @@ public class FoofleReformulate {
     	System.out.println(l.toString());
     	return l;
     }
+    
+    public static void main(String[] args) {
+		List<String> s = FoofleReformulate.strategy1(new String[]{"personnes", "Intouchables"});
+		System.out.println(s);
+	}
      
 }
