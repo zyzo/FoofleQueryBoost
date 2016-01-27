@@ -15,7 +15,7 @@ import sparqlclient.Pair;
  * - plusieurs requetes -> fusionne résultat
  *
  */
-public class FoofleReformulate2 {
+public class FoofleReformulate2_n {
 	
 	public static List<String> split_Req(String req){
 		
@@ -27,16 +27,33 @@ public class FoofleReformulate2 {
 		return l;
 	}
 	
-	
+	public static List<Pair<String,String>> combine(List<String> l){
+		List<Pair<String,String>> pairList = new ArrayList<Pair<String,String>>();
+		while(l.size() >1){
+			for(int i=1; i< l.size();i++){
+				pairList.add(new Pair(l.get(0), l.get(i)));
+			}
+			l.remove(0);
+		}
+		return pairList;
+	}
 	
 	 /**
      * @param args the command line arguments
      */
-    public List<String> strategy2(String args) {
-    	
+    public List<String> strategy3(String args) {
     	List<String> l =  new ArrayList();
+    	List<String> l2 =  new ArrayList();
     		l = split_Req(args);
-    	int nb_var = l.size();
+    		l2 = split_Req(args);
+    	//int nb_var = l.size();
+    	List<Pair<String,String>> pairList = new ArrayList<Pair<String,String>>();
+    	
+    	pairList=combine(l2);
+    	
+    	/*for(int i=0; i<(pairList.size()-1);i++){
+    		System.out.println(pairList.get(i).getL() + pairList.get(i).getR());
+    	}*/
     	
         SparqlClient sparqlClient = new SparqlClient("localhost:3030");
         String prefix = "PREFIX : <http://ontologies.alwaysdata.net/space#>\n" +
@@ -44,10 +61,13 @@ public class FoofleReformulate2 {
 						"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
 						"PREFIX owl:  <http://www.w3.org/2002/07/owl#>\n" +
 						"PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>\n";
-        String query = prefix + "SELECT ?label\n" +
+        
+        String query;
+        for(int i=0;i <pairList.size();i++){
+        query = prefix + "SELECT ?label\n" +
 						"WHERE {\n" +
-						  "?search1 rdfs:label '"+ l.get(1) +"'@fr.\n" +
-						  "?search2 rdfs:label '"+ l.get(0) +"'@fr.\n" +
+						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'@fr.\n" +
+						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'@fr.\n" +
 						  "?search1 ?search2 ?ressource.\n" +
 						  "?ressource rdfs:label ?label\n" +
 						"}";
@@ -61,12 +81,14 @@ public class FoofleReformulate2 {
             l.add(val);
         	}
         }
+        }
+        System.out.println("After for loop 1");
         
-   
+        for(int i=0;i <pairList.size();i++){
             query = prefix + "SELECT ?label\n" +
     						"WHERE {\n" +
-    						  "?search1 rdfs:label '"+ l.get(1) +"'@fr.\n" +
-    						  "?search2 rdfs:label '"+ l.get(0) +"'@fr.\n" +
+    						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'@fr.\n" +
+    						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'@fr.\n" +
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
@@ -80,13 +102,13 @@ public class FoofleReformulate2 {
                 l.add(val);
             	}
             }
-            
+        }
         	
-    	
+        for(int i=0;i <pairList.size();i++){
     	query = prefix + "SELECT ?label\n" +
     						"WHERE {\n" +
-    						  "?search1 rdfs:label '"+ l.get(1) +"'.\n" +
-    						  "?search2 rdfs:label '"+ l.get(0) +"'@fr.\n" +
+    						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'.\n" +
+    						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'@fr.\n" +
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
@@ -100,11 +122,13 @@ public class FoofleReformulate2 {
                 l.add(val);
             	}
             }
+        }
             
+        for(int i=0;i <pairList.size();i++){
         	query = prefix + "SELECT ?label\n" +
     						"WHERE {\n" +
-    						  "?search1 rdfs:label '"+ l.get(1) +"'.\n" +
-    						  "?search2 rdfs:label '"+ l.get(0) +"'@fr.\n" +
+    						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'.\n" +
+    						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'@fr.\n" +
     						  "?search1 ?search2 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
@@ -118,13 +142,13 @@ public class FoofleReformulate2 {
                 l.add(val);
             	}
             }
-            
+        }
         	
-    	
+        for(int i=0;i <pairList.size();i++){
     	query = prefix + "SELECT ?label\n" +
     						"WHERE {\n" +
-    						  "?search1 rdfs:label '"+ l.get(1) +"'@fr.\n" +
-    						  "?search2 rdfs:label '"+ l.get(0) +"'.\n" +
+    						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'@fr.\n" +
+    						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'.\n" +
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
@@ -138,11 +162,13 @@ public class FoofleReformulate2 {
                 l.add(val);
             	}
             }
+        }
             
+        for(int i=0;i <pairList.size();i++){
         	query = prefix + "SELECT ?label\n" +
     						"WHERE {\n" +
-    						  "?search1 rdfs:label '"+ l.get(1) +"'@fr.\n" +
-    						  "?search2 rdfs:label '"+ l.get(0) +"'.\n" +
+    						  "?search1 rdfs:label '"+ pairList.get(i).getL() +"'@fr.\n" +
+    						  "?search2 rdfs:label '"+ pairList.get(i).getR() +"'.\n" +
     						  "?search1 ?search2 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
@@ -157,7 +183,7 @@ public class FoofleReformulate2 {
             	}
             }
             
-        	
+        }
     	
     	System.out.println(l.toString());
     	return l;
