@@ -70,9 +70,9 @@ public static List<String> split_Req(String[] req){
 						  "?search1 ?search2 ?ressource.\n" +
 						  "?ressource rdfs:label ?label\n" +
 						"}";
-        System.out.println("Query : ");
-        System.out.println(query);
-        System.out.println("Result : ");
+        //System.out.println("Query : ");
+        //System.out.println(query);
+        //System.out.println("Result : ");
         Iterable<Map<String, String>> results = sparqlClient.select(query);
         for (Map<String, String> result : results) {
         	String val = result.get("label");
@@ -81,7 +81,7 @@ public static List<String> split_Req(String[] req){
         	}
         }
         }
-        System.out.println("After for loop 1");
+        //System.out.println("After for loop 1");
         
         for(int i=0;i <pairList.size();i++){
             query = prefix + "SELECT ?label\n" +
@@ -91,9 +91,9 @@ public static List<String> split_Req(String[] req){
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
-            System.out.println("Query : ");
-            System.out.println(query);
-            System.out.println("Result : ");
+            //System.out.println("Query : ");
+            //System.out.println(query);
+            //System.out.println("Result : ");
             Iterable<Map<String, String>> results2 = sparqlClient.select(query);
             for (Map<String, String> result : results2) {
             	String val = result.get("label");
@@ -111,9 +111,9 @@ public static List<String> split_Req(String[] req){
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
-            System.out.println("Query : ");
-            System.out.println(query);
-            System.out.println("Result : ");
+            //System.out.println("Query : ");
+            //System.out.println(query);
+            //System.out.println("Result : ");
             Iterable<Map<String, String>> results3 = sparqlClient.select(query);
             for (Map<String, String> result : results3) {
             	String val = result.get("label");
@@ -131,9 +131,9 @@ public static List<String> split_Req(String[] req){
     						  "?search1 ?search2 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
-            System.out.println("Query : ");
+            /*System.out.println("Query : ");
             System.out.println(query);
-            System.out.println("Result : ");
+            System.out.println("Result : ");*/
             Iterable<Map<String, String>> results4 = sparqlClient.select(query);
             for (Map<String, String> result : results4) {
             	String val = result.get("label");
@@ -151,9 +151,9 @@ public static List<String> split_Req(String[] req){
     						  "?search2 ?search1 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
-            System.out.println("Query : ");
+            /*System.out.println("Query : ");
             System.out.println(query);
-            System.out.println("Result : ");
+            System.out.println("Result : ");*/
             Iterable<Map<String, String>> results5 = sparqlClient.select(query);
             for (Map<String, String> result : results5) {
             	String val = result.get("label");
@@ -171,9 +171,9 @@ public static List<String> split_Req(String[] req){
     						  "?search1 ?search2 ?ressource.\n" +
     						  "?ressource rdfs:label ?label\n" +
     						"}";
-            System.out.println("Query : ");
+            /*System.out.println("Query : ");
             System.out.println(query);
-            System.out.println("Result : ");
+            System.out.println("Result : ");*/
             Iterable<Map<String, String>> results6 = sparqlClient.select(query);
             for (Map<String, String> result : results6) {
             	String val = result.get("label");
@@ -184,8 +184,12 @@ public static List<String> split_Req(String[] req){
             
         }
     	
-    	System.out.println(l.toString());
+    	//System.out.println(l.toString());
     	return l;
     }
+    
+    public static void main(String[] args) {
+		FoofleReformulate2_n.strategy3(new String[]{"lieu naissance", "Omar Sy"});
+	}
      
 }

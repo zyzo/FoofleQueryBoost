@@ -87,7 +87,7 @@ public class FoofleReformulate {
     	
     		
     	
-    	System.out.println(l.toString());
+    	//System.out.println(l.toString());
     	return l;
     }
     
