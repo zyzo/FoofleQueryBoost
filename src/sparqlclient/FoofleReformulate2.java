@@ -17,11 +17,10 @@ import sparqlclient.Pair;
  */
 public class FoofleReformulate2 {
 	
-	public static List<String> split_Req(String req){
+public static List<String> split_Req(String[] req){
 		
-		String[] splitted = req.split(", ");
 		List<String> l = new ArrayList();
-		for(String st : splitted){
+		for(String st : req){
 			l.add(st);
 		}
 		return l;
@@ -32,7 +31,7 @@ public class FoofleReformulate2 {
 	 /**
      * @param args the command line arguments
      */
-    public List<String> strategy2(String args) {
+    public static List<String> strategy2(String[] args) {
     	
     	List<String> l =  new ArrayList();
     		l = split_Req(args);
